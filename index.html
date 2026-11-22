@@ -121,5 +121,13 @@ function go(){if(started)return;var p=a.play();if(p&&p.then){p.then(function(){s
 evs.forEach(function(e){document.addEventListener(e,go,true)});
 var p=a.play();if(p&&p.then){p.then(function(){started=true;off()}).catch(function(){})}
 })();</script>
+<style>
+.mute{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:40;width:46px;height:46px;border-radius:50%;border:1px solid #e3d3cb;background:#fdf6f1ee;color:#4a1f2a;display:grid;place-items:center;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.25);backdrop-filter:blur(8px);padding:0}
+.mute:hover{color:#2f5d3a}.mute svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.mute .off{display:none}.mute.muted .on{display:none}.mute.muted .off{display:block}
+</style>
+<button class="mute" id="muteBtn" type="button" aria-label="Mute music" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><g class="on"><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></g><g class="off"><path d="m16 9 5 6"/><path d="m21 9-5 6"/></g></svg></button>
+<script>(function(){var a=document.getElementById('bgSong'),b=document.getElementById('muteBtn');
+b.addEventListener('click',function(e){e.stopPropagation();a.muted=!a.muted;b.classList.toggle('muted',a.muted);b.setAttribute('aria-pressed',a.muted);b.setAttribute('aria-label',a.muted?'Unmute music':'Mute music');if(!a.muted&&a.paused){var p=a.play();if(p&&p.catch)p.catch(function(){})}})})();</script>
 </body>
 </html>
